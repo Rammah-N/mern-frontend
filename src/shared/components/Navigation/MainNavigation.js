@@ -16,14 +16,14 @@ const MainNavigation = () => {
 		<>
 			{visible && (
 				<>
-					<SideDrawer>
-						<nav className="main-navigation__drawer-nav">
-							<NavLinks />
-						</nav>
-					</SideDrawer>
 					<Backdrop onClick={closeDrawer} />
 				</>
 			)}
+			<SideDrawer visible={visible} closeDrawer={closeDrawer}>
+				<nav className="main-navigation__drawer-nav">
+					<NavLinks />
+				</nav>
+			</SideDrawer>
 			<MainHeader>
 				<button className="main-navigation__menu-btn" onClick={openDrawer}>
 					<span />
