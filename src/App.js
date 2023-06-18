@@ -8,15 +8,22 @@ import {
 import Users from "./users/pages/Users";
 import NewPlace from "./places/pages/NewPlace";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import UserPlaces from "./places/pages/UserPlaces";
 function App() {
 	return (
 		<Router>
 			<MainNavigation />
 			<main>
 				<Switch>
+					
 					<Route path="/places/new">
 						<NewPlace />
 					</Route>
+
+					<Route path="/:userId/places">
+						<UserPlaces />
+					</Route>
+
 					<Route path="/" exact>
 						<Users />
 					</Route>
