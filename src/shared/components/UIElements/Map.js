@@ -5,7 +5,6 @@ const Map = (props) => {
 	const mapRef = useRef();
 
 	const { center, zoom } = props;
-	console.log(window.ol);
 	useEffect(() => {
 		const map = new window.ol.Map({
 			target: mapRef.current.id,

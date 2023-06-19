@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 
 const UserPlaces = () => {
 	const { userId } = useParams();
-	console.log(userId);
 	const places = [
 		{
 			id: 1,

@@ -7,10 +7,17 @@ import Map from "../../shared/components/UIElements/Map";
 
 const PlaceItem = ({ place }) => {
 	const [showMap, setShowMap] = useState(false);
+	const [showDelete, setShowDelete] = useState(false);
 
 	const openMap = () => setShowMap(true);
 	const closeMap = () => setShowMap(false);
 
+	const openDelete = () => setShowDelete(true);
+	const closeDelete = () => setShowDelete(false);
+
+	const deletePlace = () => {
+		setShowDelete(false);
+	};
 	return (
 		<>
 			<Modal
@@ -22,6 +29,25 @@ const PlaceItem = ({ place }) => {
 				footer={<Button onClick={closeMap}>Close Map</Button>}>
 				<div className="map-container">
 					<Map center={place.coordinates} zoom={16} />
+				</div>
+			</Modal>
+			<Modal
+				show={showDelete}
+				onCancel={closeDelete}
+				header="Delete place"
+				footerClass="place-item__modal-actions"
+				footer={
+					<div className="center">
+						<Button onClick={closeDelete} inverse>
+							Cancel
+						</Button>
+						<Button danger onClick={deletePlace}>
+							Delete
+						</Button>
+					</div>
+				}>
+				<div className="center">
+					<p>Do you want to proceed?</p>
 				</div>
 			</Modal>
 			<li className="place-item">
@@ -39,7 +65,9 @@ const PlaceItem = ({ place }) => {
 							View On Map
 						</Button>
 						<Button to={`/places/${place.id}`}>Edit</Button>
-						<Button danger>Delete</Button>
+						<Button danger onClick={openDelete}>
+							Delete
+						</Button>
 					</div>
 				</Card>
 			</li>
