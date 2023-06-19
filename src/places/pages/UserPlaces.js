@@ -13,7 +13,7 @@ const UserPlaces = () => {
 			description: "A beautiful park with lush greenery and walking trails.",
 			address: "123 Main St, City, Country",
 			creator: "1",
-			coordinates: { latitude: 40.7128, longitude: -74.006 },
+			coordinates: { lat: 40.7128, lng: -74.006 },
 		},
 		{
 			id: 2,
@@ -23,7 +23,7 @@ const UserPlaces = () => {
 				"A cozy restaurant with delicious cuisine and friendly staff.",
 			address: "456 Elm St, City, Country",
 			creator: "2",
-			coordinates: { latitude: 34.0522, longitude: -118.2437 },
+			coordinates: { lat: 34.0522, lng: -118.2437 },
 		},
 		{
 			id: 3,
@@ -32,7 +32,7 @@ const UserPlaces = () => {
 			description: "An intriguing museum showcasing art and history exhibits.",
 			address: "789 Oak St, City, Country",
 			creator: "3",
-			coordinates: { latitude: 51.5074, longitude: -0.1278 },
+			coordinates: { lat: 51.5074, lng: -0.1278 },
 		},
 	];
 
