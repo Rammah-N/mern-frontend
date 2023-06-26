@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import {
 	VALIDATOR_EMAIL,
@@ -7,10 +7,15 @@ import {
 } from "../../shared/util/validators";
 import { useForm } from "../../shared/hooks/formHook";
 import Card from "../../shared/components/UIElements/Card";
-import "./Auth.css";
 import Button from "../../shared/components/FormElements/Button";
+import { AuthContext } from "../../shared/context/authContext";
+import "./Auth.css";
+
+const API = process.env.REACT_APP_API;
+console.log(API);
 
 const Auth = () => {
+	const auth = useContext(AuthContext);
 	const [loginMode, setLoginMode] = useState(true);
 	const [formState, inputHandler, setFormData] = useForm(
 		{
@@ -28,7 +33,31 @@ const Auth = () => {
 
 	const login = (event) => {
 		event.preventDefault();
-		console.log(formState);
+		auth.login();
+	};
+
+	const signUp = async (event) => {
+		event.preventDefault();
+
+		const user = {
+			name: formState.inputs.name.value,
+			email: formState.inputs.email.value,
+			password: formState.inputs.password.value,
+		};
+		try {
+			const response = await fetch(`${API}/users/signup`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(user),
+			});
+
+			const data = await response.json();
+			console.log(data);
+		} catch (error) {
+			console.log(error);
+		}
 	};
 
 	const switchMode = () => {
@@ -60,7 +89,7 @@ const Auth = () => {
 			{loginMode ? <h2>Login required</h2> : <h2>Sign Up</h2>}
 			<hr />
 			<br />
-			<form className="place-form" onSubmit={login}>
+			<form className="place-form" onSubmit={loginMode ? login : signUp}>
 				{!loginMode && (
 					<Input
 						id="name"
