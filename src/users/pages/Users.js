@@ -1,41 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UsersList from "../components/UsersList";
-
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+const API = process.env.REACT_APP_API;
 const Users = () => {
-	const USERS = [
-		{
-			id: "1",
-			image: "https://dummyimage.com/400x400/000/fff",
-			name: "John Doe",
-			places: 7,
-		},
-		{
-			id: "2",
-			image: "https://dummyimage.com/400x400/000/fff",
-			name: "Jane Smith",
-			places: 3,
-		},
-		{
-			id: "3",
-			image: "https://dummyimage.com/400x400/000/fff",
-			name: "David Johnson",
-			places: 10,
-		},
-		{
-			id: "4",
-			image: "https://dummyimage.com/400x400/000/fff",
-			name: "Sarah Williams",
-			places: 5,
-		},
-		{
-			id: "5",
-			image: "https://dummyimage.com/400x400/000/fff",
-			name: "Michael Brown",
-			places: 2,
-		},
-	];
+	const [users, setUsers] = useState(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
 
-	return <UsersList users={USERS} />;
+	useEffect(() => {
+		const fetchUsers = async () => {
+			setLoading(true);
+			try {
+				const response = await fetch(`${API}/users`);
+
+				const data = await response.json();
+				if (!response.ok) {
+					throw new Error(data.message);
+				}
+				setUsers(data.users);
+				setLoading(false);
+			} catch (err) {
+				setLoading(false);
+				setError(err.message);
+			}
+		};
+
+		fetchUsers();
+	}, []);
+
+	return (
+		<>
+			<ErrorModal error={error} onClear={() => setError("")} />
+			{loading && (
+				<div className="center">
+					<LoadingSpinner asOverlay />
+				</div>
+			)}
+			<UsersList users={users} />
+		</>
+	);
 };
 
 export default Users;
