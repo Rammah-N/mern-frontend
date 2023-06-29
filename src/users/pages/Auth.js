@@ -42,7 +42,7 @@ const Auth = () => {
 			password: formState.inputs.password.value,
 		};
 		try {
-			await sendRequest(
+			const data = await sendRequest(
 				`${API}/users/login`,
 				"POST",
 				JSON.stringify(credentials),
@@ -51,7 +51,7 @@ const Auth = () => {
 				}
 			);
 
-			auth.login();
+			auth.login(data.user);
 		} catch (err) {}
 	};
 
