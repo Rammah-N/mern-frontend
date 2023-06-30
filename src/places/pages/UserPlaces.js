@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PlacesList from "../components/PlacesList";
 import { useParams } from "react-router-dom";
 import { useHttp } from "../../shared/hooks/httpHook";
@@ -22,7 +22,9 @@ const UserPlaces = () => {
 		fetchData();
 	}, [sendRequest, userId]);
 
-	console.log(userId);
+	const onDelete = (pid) => {
+		setPlaces((prev) => prev.filter((p) => p.id !== pid));
+	};
 
 	return (
 		<>
@@ -30,6 +32,7 @@ const UserPlaces = () => {
 			{loading && <LoadingSpinner asOverlay />}
 			<PlacesList
 				places={places?.filter((place) => place.creator === userId)}
+				onDelete={onDelete}
 			/>
 		</>
 	);

@@ -5,24 +5,36 @@ import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
 import Map from "../../shared/components/UIElements/Map";
+import { useHttp } from "../../shared/hooks/httpHook";
 import "./PlaceItem.css";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import { useHistory } from "react-router-dom";
 
-const PlaceItem = ({ place }) => {
+const API = process.env.REACT_APP_API;
+
+const PlaceItem = ({ place, onDelete }) => {
+	console.log(place);
+	const { loading, error, sendRequest, clearError } = useHttp();
 	const auth = useContext(AuthContext);
 	const [showMap, setShowMap] = useState(false);
 	const [showDelete, setShowDelete] = useState(false);
-
+	const history = useHistory;
 	const openMap = () => setShowMap(true);
 	const closeMap = () => setShowMap(false);
 
 	const openDelete = () => setShowDelete(true);
 	const closeDelete = () => setShowDelete(false);
 
-	const deletePlace = () => {
+	const deletePlace = async () => {
+		await sendRequest(`${API}/places/${place.id}`, "DELETE");
+		onDelete(place.id);
 		setShowDelete(false);
 	};
 	return (
 		<>
+			<ErrorModal error={error} onClear={clearError} />
+			{loading && <LoadingSpinner asOverlay />}
 			<Modal
 				show={showMap}
 				onCancel={closeMap}
@@ -67,7 +79,7 @@ const PlaceItem = ({ place }) => {
 						<Button inverse onClick={openMap}>
 							View On Map
 						</Button>
-						{auth.isLoggedIn && (
+						{auth.user?.id === place?.creator && (
 							<>
 								<Button to={`/places/${place.id}`}>Edit</Button>
 								<Button danger onClick={openDelete}>
