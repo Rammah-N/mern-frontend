@@ -15,7 +15,6 @@ import { useHttp } from "../../shared/hooks/httpHook";
 import "./Auth.css";
 
 const API = process.env.REACT_APP_API;
-console.log(API);
 
 const Auth = () => {
 	const auth = useContext(AuthContext);
