@@ -9,7 +9,6 @@ import "./PlaceItem.css";
 
 const PlaceItem = ({ place }) => {
 	const auth = useContext(AuthContext);
-
 	const [showMap, setShowMap] = useState(false);
 	const [showDelete, setShowDelete] = useState(false);
 
@@ -32,7 +31,7 @@ const PlaceItem = ({ place }) => {
 				footerClass="place-item__modal-actions"
 				footer={<Button onClick={closeMap}>Close Map</Button>}>
 				<div className="map-container">
-					<Map center={place.coordinates} zoom={16} />
+					<Map center={place.location} zoom={16} />
 				</div>
 			</Modal>
 			<Modal

@@ -6,7 +6,7 @@ import PlaceItem from "./PlaceItem";
 import Button from "../../shared/components/FormElements/Button";
 
 const PlacesList = ({ places }) => {
-	if (places.length === 0) {
+	if (places?.length === 0) {
 		return (
 			<div className="place-list center">
 				<Card>
@@ -19,7 +19,7 @@ const PlacesList = ({ places }) => {
 
 	return (
 		<ul className="place-list">
-			{places.map((place) => (
+			{places?.map((place) => (
 				<PlaceItem place={place} key={place.id} />
 			))}
 		</ul>
