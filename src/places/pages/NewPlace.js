@@ -16,8 +16,8 @@ import "./PlaceForm.css";
 const API = process.env.REACT_APP_API;
 
 const NewPlace = () => {
-	const { loading, error, sendRequest, clearError } = useHttp();
 	const auth = useContext(AuthContext);
+	const { loading, error, sendRequest, clearError } = useHttp(auth.token);
 	console.log(auth);
 	const [formState, inputHandler, setFormData] = useForm(
 		{

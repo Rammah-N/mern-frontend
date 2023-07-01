@@ -18,10 +18,10 @@ import { AuthContext } from "../../shared/context/authContext";
 const API = process.env.REACT_APP_API;
 
 const UpdatePlace = () => {
-	const { user } = useContext(AuthContext);
+	const { user, token } = useContext(AuthContext);
 	const { pid } = useParams();
 	const [place, setPlace] = useState({});
-	const { loading, error, sendRequest, clearError } = useHttp();
+	const { loading, error, sendRequest, clearError } = useHttp(token);
 	const history = useHistory();
 	const [formState, inputHandler, setFormData] = useForm(
 		{

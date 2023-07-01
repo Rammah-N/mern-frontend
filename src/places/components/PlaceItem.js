@@ -14,9 +14,8 @@ import { useHistory } from "react-router-dom";
 const API = process.env.REACT_APP_API;
 
 const PlaceItem = ({ place, onDelete }) => {
-	console.log(place);
-	const { loading, error, sendRequest, clearError } = useHttp();
 	const auth = useContext(AuthContext);
+	const { loading, error, sendRequest, clearError } = useHttp(auth.token);
 	const [showMap, setShowMap] = useState(false);
 	const [showDelete, setShowDelete] = useState(false);
 	const history = useHistory;
@@ -68,7 +67,10 @@ const PlaceItem = ({ place, onDelete }) => {
 			<li className="place-item">
 				<Card>
 					<div className="place-item__image">
-						<img src={`http://localhost:5000/${place.image}`} alt={place.title} />
+						<img
+							src={`http://localhost:5000/${place.image}`}
+							alt={place.title}
+						/>
 					</div>
 					<div className="place-item__info">
 						<h2>{place.title}</h2>

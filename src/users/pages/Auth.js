@@ -64,12 +64,11 @@ const Auth = () => {
 		formData.append("image", formState.inputs.image.value);
 
 		try {
-			await sendRequest(`${API}/users/signup`, "POST", formData);
+			const data = await sendRequest(`${API}/users/signup`, "POST", formData);
 
-			auth.login();
+			auth.login(data.user);
 		} catch (err) {}
 	};
-	console.log(formState);
 	const switchMode = () => {
 		if (!loginMode) {
 			setFormData(

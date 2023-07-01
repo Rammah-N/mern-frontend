@@ -1,14 +1,21 @@
-import { useState, useCallback, useRef, useEffect } from "react";
+import { useState, useCallback, useRef, useEffect, useContext } from "react";
+const AuthContext = require("../context/authContext");
 
-export const useHttp = () => {
+export const useHttp = (token) => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState();
+	const auth = useContext(AuthContext);
 
 	const activeHttpRequests = useRef([]);
 
 	const sendRequest = useCallback(
 		async (url, method = "GET", body = null, headers = {}) => {
 			setLoading(true);
+			console.log(auth);
+			if (token) {
+				headers.authorization = `Bearer ${token}`;
+			}
+
 			const httpAbortCtrl = new AbortController();
 			activeHttpRequests.current.push(httpAbortCtrl);
 			try {
@@ -36,7 +43,7 @@ export const useHttp = () => {
 				throw err;
 			}
 		},
-		[]
+		[auth]
 	);
 	const clearError = () => setError(null);
 
