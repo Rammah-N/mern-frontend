@@ -5,15 +5,14 @@ import Avatar from "../../shared/components/UIElements/Avatar";
 import Card from "../../shared/components/UIElements/Card";
 import "./UserItem.css";
 
-const API = process.env.REACT_APP_API
-
+const URL = process.env.REACT_APP_URL;
 const UserItem = ({ user }) => {
 	return (
 		<li className="user-item">
 			<Card className="user-item__content">
 				<Link to={`/${user.id}/places`}>
 					<div className="user-item__image">
-						<Avatar image={`http://localhost:5000/${user.image}`} alt={user.name} />
+						<Avatar image={`${URL}/${user.image}`} alt={user.name} />
 					</div>
 					<div className="user-item__info">
 						<h2>{user.name}</h2>

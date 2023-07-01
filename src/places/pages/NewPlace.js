@@ -19,7 +19,7 @@ const NewPlace = () => {
 	const auth = useContext(AuthContext);
 	const { loading, error, sendRequest, clearError } = useHttp(auth.token);
 	console.log(auth);
-	const [formState, inputHandler, setFormData] = useForm(
+	const [formState, inputHandler] = useForm(
 		{
 			title: {
 				value: "",

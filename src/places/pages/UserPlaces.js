@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import PlacesList from "../components/PlacesList";
 import { useParams } from "react-router-dom";
 import { useHttp } from "../../shared/hooks/httpHook";

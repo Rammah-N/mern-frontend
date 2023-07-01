@@ -9,16 +9,14 @@ import { useHttp } from "../../shared/hooks/httpHook";
 import "./PlaceItem.css";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import { useHistory } from "react-router-dom";
 
 const API = process.env.REACT_APP_API;
-
+const URL = process.env.REACT_APP_URL;
 const PlaceItem = ({ place, onDelete }) => {
 	const auth = useContext(AuthContext);
 	const { loading, error, sendRequest, clearError } = useHttp(auth.token);
 	const [showMap, setShowMap] = useState(false);
 	const [showDelete, setShowDelete] = useState(false);
-	const history = useHistory;
 	const openMap = () => setShowMap(true);
 	const closeMap = () => setShowMap(false);
 
@@ -67,10 +65,7 @@ const PlaceItem = ({ place, onDelete }) => {
 			<li className="place-item">
 				<Card>
 					<div className="place-item__image">
-						<img
-							src={`http://localhost:5000/${place.image}`}
-							alt={place.title}
-						/>
+						<img src={`${URL}/${place.image}`} alt={place.title} />
 					</div>
 					<div className="place-item__info">
 						<h2>{place.title}</h2>

@@ -43,7 +43,7 @@ export const useHttp = (token) => {
 				throw err;
 			}
 		},
-		[auth]
+		[auth, token]
 	);
 	const clearError = () => setError(null);
 
