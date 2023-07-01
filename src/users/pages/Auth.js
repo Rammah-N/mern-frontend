@@ -12,6 +12,7 @@ import { AuthContext } from "../../shared/context/authContext";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttp } from "../../shared/hooks/httpHook";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import "./Auth.css";
 
 const API = process.env.REACT_APP_API;
@@ -56,21 +57,19 @@ const Auth = () => {
 
 	const signUp = async (event) => {
 		event.preventDefault();
+		const formData = new FormData();
+		formData.append("name", formState.inputs.name.value);
+		formData.append("email", formState.inputs.email.value);
+		formData.append("password", formState.inputs.password.value);
+		formData.append("image", formState.inputs.image.value);
 
-		const user = {
-			name: formState.inputs.name.value,
-			email: formState.inputs.email.value,
-			password: formState.inputs.password.value,
-		};
 		try {
-			await sendRequest(`${API}/users/signup`, "POST", JSON.stringify(user), {
-				"Content-Type": "application/json",
-			});
+			await sendRequest(`${API}/users/signup`, "POST", formData);
 
 			auth.login();
 		} catch (err) {}
 	};
-
+	console.log(formState);
 	const switchMode = () => {
 		if (!loginMode) {
 			setFormData(
@@ -86,6 +85,10 @@ const Auth = () => {
 					...formState.inputs,
 					name: {
 						value: "",
+						isValid: false,
+					},
+					image: {
+						value: null,
 						isValid: false,
 					},
 				},
@@ -105,16 +108,24 @@ const Auth = () => {
 				<br />
 				<form className="place-form" onSubmit={loginMode ? login : signUp}>
 					{!loginMode && (
-						<Input
-							id="name"
-							element="input"
-							label="Full Name"
-							type="text"
-							title="name"
-							errorText="Please enter a name"
-							validators={[VALIDATOR_REQUIRE()]}
-							onInput={inputHandler}
-						/>
+						<>
+							<Input
+								id="name"
+								element="input"
+								label="Full Name"
+								type="text"
+								title="name"
+								errorText="Please enter a name"
+								validators={[VALIDATOR_REQUIRE()]}
+								onInput={inputHandler}
+							/>
+							<ImageUpload
+								id="image"
+								center
+								onInput={inputHandler}
+								errorText="Please upload an image"
+							/>
+						</>
 					)}
 					<Input
 						id="email"

@@ -68,7 +68,7 @@ const PlaceItem = ({ place, onDelete }) => {
 			<li className="place-item">
 				<Card>
 					<div className="place-item__image">
-						<img src={place.image} alt={place.title} />
+						<img src={`http://localhost:5000/${place.image}`} alt={place.title} />
 					</div>
 					<div className="place-item__info">
 						<h2>{place.title}</h2>

@@ -10,9 +10,9 @@ import { useForm } from "../../shared/hooks/formHook";
 import { useHttp } from "../../shared/hooks/httpHook";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import "./PlaceForm.css";
 import { AuthContext } from "../../shared/context/authContext";
-
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
+import "./PlaceForm.css";
 const API = process.env.REACT_APP_API;
 
 const NewPlace = () => {
@@ -33,6 +33,10 @@ const NewPlace = () => {
 				value: "",
 				isValid: false,
 			},
+			image: {
+				value: null,
+				isValid: false,
+			},
 		},
 		false
 	);
@@ -41,20 +45,14 @@ const NewPlace = () => {
 
 	const addPlace = async (event) => {
 		event.preventDefault();
+		const formData = new FormData();
+		formData.append("title", formState.inputs.title.value);
+		formData.append("description", formState.inputs.description.value);
+		formData.append("address", formState.inputs.address.value);
+		formData.append("creator", auth.user.id);
+		formData.append("image", formState.inputs.image.value);
 		try {
-			await sendRequest(
-				`${API}/places`,
-				"POST",
-				JSON.stringify({
-					title: formState.inputs.title.value,
-					description: formState.inputs.description.value,
-					address: formState.inputs.address.value,
-					creator: auth.user.id,
-				}),
-				{
-					"Content-Type": "Application/json",
-				}
-			);
+			await sendRequest(`${API}/places`, "POST", formData);
 			history.push("/");
 		} catch (error) {}
 	};
@@ -89,6 +87,12 @@ const NewPlace = () => {
 					validators={[VALIDATOR_REQUIRE()]}
 					errorText="Please enter a valid address"
 					onInput={inputHandler}
+				/>
+				<ImageUpload
+					id="image"
+					center
+					onInput={inputHandler}
+					errorText="Please upload an image"
 				/>
 				<Button type="submit" disabled={!formState.isValid}>
 					Add Place
