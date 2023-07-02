@@ -11,7 +11,6 @@ export const useHttp = (token) => {
 	const sendRequest = useCallback(
 		async (url, method = "GET", body = null, headers = {}) => {
 			setLoading(true);
-			console.log(auth);
 			if (token) {
 				headers.authorization = `Bearer ${token}`;
 			}

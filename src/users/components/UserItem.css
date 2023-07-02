@@ -4,6 +4,10 @@
   min-width: 17.5rem;
 }
 
+.user-item .card {
+  height: 100%;
+}
+
 .user-item a {
   display: flex;
   align-items: center;
@@ -13,6 +17,7 @@
   padding: 1rem;
   color: white;
   background: #292929;
+  transition: all 0.2s;
 }
 
 .user-item a:hover,

@@ -19,6 +19,7 @@
 	color: #292929;
 	text-decoration: none;
 	padding: 0.5rem;
+	transition: all 0.2s;
 }
 
 .nav-links a:hover,
