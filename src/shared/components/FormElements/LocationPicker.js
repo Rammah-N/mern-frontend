@@ -2,8 +2,8 @@ import React, { useState, useRef, useMemo, useCallback } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
 const center = {
-	lat: 51.505,
-	lng: -0.09,
+	lat: 25.1957339,
+	lng: 55.2659489,
 };
 
 function DraggableMarker({ setLocation }) {
@@ -46,8 +46,8 @@ function DraggableMarker({ setLocation }) {
 const LocationPicker = ({ setLocation }) => {
 	return (
 		<MapContainer
-			center={[51.505, -0.09]}
-			zoom={13}
+			center={[25.1957339, 55.2659489]}
+			zoom={4}
 			scrollWheelZoom={false}
 			style={{ width: "100%", height: 300, margin: "20px 0" }}>
 			<TileLayer
