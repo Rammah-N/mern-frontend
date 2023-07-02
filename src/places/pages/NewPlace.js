@@ -13,12 +13,12 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import { AuthContext } from "../../shared/context/authContext";
 import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 import "./PlaceForm.css";
+import LocationPicker from "../../shared/components/FormElements/LocationPicker";
 const API = process.env.REACT_APP_API;
 
 const NewPlace = () => {
 	const auth = useContext(AuthContext);
 	const { loading, error, sendRequest, clearError } = useHttp(auth.token);
-	console.log(auth);
 	const [formState, inputHandler] = useForm(
 		{
 			title: {
@@ -37,10 +37,16 @@ const NewPlace = () => {
 				value: null,
 				isValid: false,
 			},
+			location: {
+				value: {
+					lat: null,
+					lng: null,
+				},
+				isValid: false,
+			},
 		},
 		false
 	);
-
 	const history = useHistory();
 
 	const addPlace = async (event) => {
@@ -55,6 +61,17 @@ const NewPlace = () => {
 			await sendRequest(`${API}/places`, "POST", formData);
 			history.push("/");
 		} catch (error) {}
+	};
+
+	const handleLocationChange = (coordinates) => {
+		inputHandler(
+			"location",
+			{
+				lat: coordinates.lat,
+				lng: coordinates.lng,
+			},
+			!!coordinates
+		);
 	};
 
 	return (
@@ -94,6 +111,8 @@ const NewPlace = () => {
 					onInput={inputHandler}
 					errorText="Please upload an image"
 				/>
+				<h2>Pick the place's location</h2>
+				<LocationPicker setLocation={handleLocationChange} />
 				<Button type="submit" disabled={!formState.isValid}>
 					Add Place
 				</Button>

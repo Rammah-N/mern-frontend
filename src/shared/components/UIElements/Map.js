@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
-
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "./Map.css";
 const Map = (props) => {
 	const mapRef = useRef();
 
-	const { center, zoom } = props;
-	useEffect(() => {
+	const { center, zoom, title } = props;
+	/* 	useEffect(() => {
 		const map = new window.ol.Map({
 			target: mapRef.current.id,
 			layers: [
@@ -29,16 +29,22 @@ const Map = (props) => {
 			}),
 		});
 		map.addLayer(layer);
-	}, [center, zoom]);
+	}, [center, zoom]); */
 
 	return (
-		<div
-			ref={mapRef}
-			className={`map ${props.className}`}
-			style={props.style}
-			id="map">
-			Map
-		</div>
+		<MapContainer
+			center={center}
+			zoom={zoom}
+			scrollWheelZoom={true}
+			style={{ width: "100%", height: 300 }}>
+			<TileLayer
+				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+			/>
+			<Marker position={center}>
+				<Popup>{title}</Popup>
+			</Marker>
+		</MapContainer>
 	);
 };
 

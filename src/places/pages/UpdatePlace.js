@@ -41,7 +41,6 @@ const UpdatePlace = () => {
 		const fetchPlace = async () => {
 			try {
 				const data = await sendRequest(`${API}/places/${pid}`);
-				console.log(data);
 				if (!data.place) {
 					setPlace(null);
 				} else {
@@ -66,10 +65,8 @@ const UpdatePlace = () => {
 		};
 		fetchPlace();
 	}, [setFormData, pid, sendRequest]);
-	console.log(place);
 	const updatePlace = async (event) => {
 		event.preventDefault();
-		console.log(formState);
 		try {
 			await sendRequest(
 				`${API}/places/${pid}`,
@@ -85,7 +82,6 @@ const UpdatePlace = () => {
 			history.push(`/${user.id}/places`);
 		} catch (error) {}
 	};
-	console.log(formState);
 
 	if (!place) {
 		return (

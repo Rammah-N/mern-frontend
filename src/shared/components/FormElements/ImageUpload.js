@@ -15,7 +15,6 @@ const ImageUpload = (props) => {
 	const uploadFile = (event) => {
 		let validity, file;
 		if (event.target.files.length === 1) {
-			console.log(event.target.files[0]);
 			file = event.target.files[0];
 			validity = true;
 			setFile(file);

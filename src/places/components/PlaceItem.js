@@ -40,7 +40,7 @@ const PlaceItem = ({ place, onDelete }) => {
 				footerClass="place-item__modal-actions"
 				footer={<Button onClick={closeMap}>Close Map</Button>}>
 				<div className="map-container">
-					<Map center={place.location} zoom={16} />
+					<Map center={place.location} zoom={16} title={place.title} />
 				</div>
 			</Modal>
 			<Modal
