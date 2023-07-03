@@ -7,9 +7,11 @@ import "./UsersList.css";
 const UsersList = ({ users }) => {
 	if (users?.length === 0) {
 		return (
-			<Card>
-				<h2>No Users Found</h2>
-			</Card>
+			<div className="center">
+				<Card>
+					<h2>No Users Found</h2>
+				</Card>
+			</div>
 		);
 	}
 
