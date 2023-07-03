@@ -66,7 +66,7 @@ const Auth = () => {
 		try {
 			const data = await sendRequest(`${API}/users/signup`, "POST", formData);
 
-			auth.login(data.user);
+			auth.login(data?.user);
 		} catch (err) {}
 	};
 	const switchMode = () => {

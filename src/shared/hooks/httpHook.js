@@ -24,11 +24,16 @@ export const useHttp = (token) => {
 					headers,
 					signal: httpAbortCtrl.signal,
 				});
-
-				const data = await response.json();
+				const data = await response?.json();
 
 				if (!response.ok) {
-					throw new Error(data.message);
+					if (data?.message) {
+						throw new Error(data.message);
+					} else {
+						throw new Error(
+							"Something went wrong on our side, please try again"
+						);
+					}
 				}
 
 				activeHttpRequests.current = activeHttpRequests.current.filter(
@@ -42,7 +47,7 @@ export const useHttp = (token) => {
 				throw err;
 			}
 		},
-		[auth, token]
+		[token]
 	);
 	const clearError = () => setError(null);
 
