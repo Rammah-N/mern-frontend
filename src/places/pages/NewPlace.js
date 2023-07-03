@@ -78,7 +78,10 @@ const NewPlace = () => {
 		<>
 			<ErrorModal error={error} onClear={clearError} />
 
-			<form className="place-form" onSubmit={addPlace}>
+			<form
+				className="place-form"
+				onSubmit={addPlace}
+				style={{ position: "relative" }}>
 				{loading && <LoadingSpinner asOverlay />}
 				<Input
 					id="title"
@@ -109,7 +112,7 @@ const NewPlace = () => {
 					id="image"
 					center
 					onInput={inputHandler}
-					errorText="Please upload an image"
+					// errorText="Please upload an image"
 				/>
 				<h2>Pick the place's location</h2>
 				<LocationPicker setLocation={handleLocationChange} />

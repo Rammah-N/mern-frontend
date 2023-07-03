@@ -31,7 +31,6 @@ const PlaceItem = ({ place, onDelete }) => {
 	return (
 		<>
 			<ErrorModal error={error} onClear={clearError} />
-			{loading && <LoadingSpinner asOverlay />}
 			<Modal
 				show={showMap}
 				onCancel={closeMap}
@@ -58,6 +57,8 @@ const PlaceItem = ({ place, onDelete }) => {
 						</Button>
 					</div>
 				}>
+				{loading && <LoadingSpinner asOverlay />}
+
 				<div className="center">
 					<p>Do you want to proceed?</p>
 				</div>
@@ -65,7 +66,7 @@ const PlaceItem = ({ place, onDelete }) => {
 			<li className="place-item">
 				<Card>
 					<div className="place-item__image">
-						<img src={`${URL}/${place.image}`} alt={place.title} />
+						<img src={`${place.image}`} alt={place.title} />
 					</div>
 					<div className="place-item__info">
 						<h2>{place.title}</h2>

@@ -53,7 +53,7 @@ const ImageUpload = (props) => {
 					{previewUrl ? (
 						<img src={previewUrl} alt="preview" />
 					) : (
-						<p>Please upload a profile picture</p>
+						<p>Please upload a picture</p>
 					)}
 				</div>
 				<Button type="button" onClick={toggleUpload}>
